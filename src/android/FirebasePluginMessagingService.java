@@ -290,7 +290,7 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
                 notificationBuilder
                     .setContentTitle(title)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setFullScreenIntent(pendingIntent);
+                    .setFullScreenIntent(pendingIntent, true);
             } else {
                 notificationBuilder
                     .setContentTitle(title)
