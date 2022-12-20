@@ -136,6 +136,7 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
             String image = null;
             String imageType = null;
             boolean foregroundNotification = false;
+            boolean fullScreenNotification = false;
 
             Map<String, String> data = remoteMessage.getData();
 
@@ -178,6 +179,11 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
                 if(data.containsKey("notification_foreground")){
                     foregroundNotification = true;
                 }
+
+                if(data.containsKey("notification_fullscreen")){
+                    fullScreenNotification = true;
+                }
+
                 if(data.containsKey("notification_title")) title = data.get("notification_title");
                 if(data.containsKey("notification_body")) body = data.get("notification_body");
                 if(data.containsKey("notification_android_body_html")) bodyHtml = data.get("notification_android_body_html");
@@ -217,15 +223,15 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
 
 
             if (!TextUtils.isEmpty(body) || !TextUtils.isEmpty(title) || (data != null && !data.isEmpty())) {
-                boolean showNotification = (FirebasePlugin.inBackground() || !FirebasePlugin.hasNotificationsCallback() || foregroundNotification) && (!TextUtils.isEmpty(body) || !TextUtils.isEmpty(title));
-                sendMessage(remoteMessage, data, messageType, id, title, body, bodyHtml, showNotification, sound, vibrate, light, color, icon, channelId, priority, visibility, image, imageType);
+                boolean showNotification = (FirebasePlugin.inBackground() || !FirebasePlugin.hasNotificationsCallback() || foregroundNotification || fullScreenNotification) && (!TextUtils.isEmpty(body) || !TextUtils.isEmpty(title));
+                sendMessage(remoteMessage, data, messageType, id, title, body, bodyHtml, showNotification, sound, vibrate, light, color, icon, channelId, priority, visibility, image, imageType, fullScreenNotification);
             }
         }catch (Exception e){
             FirebasePlugin.handleExceptionWithoutContext(e);
         }
     }
 
-    private void sendMessage(RemoteMessage remoteMessage, Map<String, String> data, String messageType, String id, String title, String body, String bodyHtml, boolean showNotification, String sound, String vibrate, String light, String color, String icon, String channelId, String priority, String visibility, String image, String imageType) {
+    private void sendMessage(RemoteMessage remoteMessage, Map<String, String> data, String messageType, String id, String title, String body, String bodyHtml, boolean showNotification, String sound, String vibrate, String light, String color, String icon, String channelId, String priority, String visibility, String image, String imageType, boolean fullScreenNotification) {
         Log.d(TAG, "sendMessage(): messageType="+messageType+"; showNotification="+showNotification+"; id="+id+"; title="+title+"; body="+body+"; sound="+sound+"; vibrate="+vibrate+"; light="+light+"; color="+color+"; icon="+icon+"; channel="+channelId+"; data="+data.toString());
         Bundle bundle = new Bundle();
         for (String key : data.keySet()) {
@@ -279,10 +285,18 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
 
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId);
-            notificationBuilder
+
+            if (fullScreenNotification) {
+                notificationBuilder
+                    .setContentTitle(title)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setFullScreenIntent(pendingIntent);
+            } else {
+                notificationBuilder
                     .setContentTitle(title)
                     .setAutoCancel(true)
                     .setContentIntent(pendingIntent);
+            }
 
             if(bodyHtml != null) {
                 notificationBuilder
