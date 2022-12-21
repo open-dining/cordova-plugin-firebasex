@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View;
 import android.widget.Button;
+import android.media.MediaPlayer;
 
 public class OnNotificationReceiverFullscreenActivity extends Activity {
     @Override
@@ -31,6 +32,10 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
             );
         }
 
+        MediaPlayer mediaPlayer = MediaPlayer.create(context, getResources().getIdentifier("ding", "raw", getPackageName()));
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+
         Activity thisActivity = this;
         Intent thisIntent = getIntent();
 
@@ -41,6 +46,10 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
         clickButton.setOnClickListener( new OnClickListener() {
             @Override
             public void onClick(View v) {
+                mediaPlayer.stop();
+                mediaPlayer.release();
+                mediaPlayer = null;
+
                 handleNotification(thisActivity, thisIntent);
             }
         });
