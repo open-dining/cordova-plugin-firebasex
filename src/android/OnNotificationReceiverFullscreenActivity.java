@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.os.Build;
 import android.util.Log;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.view.View;
+import android.widget.Button;
 
 public class OnNotificationReceiverFullscreenActivity extends Activity {
     @Override
