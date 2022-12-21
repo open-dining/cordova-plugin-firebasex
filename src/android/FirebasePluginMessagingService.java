@@ -264,15 +264,14 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
             PendingIntent pendingIntent;
             final int flag = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;  // Only add on platform levels that support FLAG_MUTABLE
 
-            if(getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.S && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                if (fullScreenNotification) {
-                    Log.d(TAG, "Full screen activity");
-                    intent = new Intent(this, OnNotificationReceiverFullscreenActivity.class);
-                } else {
-                    Log.d(TAG, "Receiver activity");
-                    intent = new Intent(this, OnNotificationReceiverActivity.class);
-                }
-
+            if (fullScreenNotification) {
+                Log.d(TAG, "Full screen activity");
+                intent = new Intent(this, OnNotificationReceiverFullscreenActivity.class);
+                intent.putExtras(bundle);
+                pendingIntent = PendingIntent.getActivity(this, id.hashCode(), intent, flag);
+            } else if(getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.S && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                Log.d(TAG, "Receiver activity");
+                intent = new Intent(this, OnNotificationReceiverActivity.class);
                 intent.putExtras(bundle);
                 pendingIntent = PendingIntent.getActivity(this, id.hashCode(), intent, flag);
             }else{
