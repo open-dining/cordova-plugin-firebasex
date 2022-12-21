@@ -32,7 +32,7 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
             );
         }
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(context, getResources().getIdentifier("ding", "raw", getPackageName()));
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, getResources().getIdentifier("ding", "raw", getPackageName()));
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
 
