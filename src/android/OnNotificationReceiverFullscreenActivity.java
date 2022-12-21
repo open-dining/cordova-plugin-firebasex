@@ -50,13 +50,12 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
                 mediaPlayer.release();
 
                 handleNotification(thisActivity, thisIntent);
+                thisActivity.finish();
             }
         });
 
         // With this uncommented, it brings the activity up, but haphazardly
         //handleNotification(this, getIntent());
-
-        // finish();
     }
 
     @Override
