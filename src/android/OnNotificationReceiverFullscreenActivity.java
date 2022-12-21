@@ -8,7 +8,7 @@ import android.app.KeyguardManager;
 import android.os.Bundle;
 import android.os.Build;
 import android.util.Log;
-import android.view.WindowManager
+import android.view.WindowManager;
 
 public class OnNotificationReceiverFullscreenActivity extends Activity {
     @Override
