@@ -88,4 +88,15 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
             FirebasePlugin.handleExceptionWithoutContext(e);
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        try
+        {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        } catch (Exception e) { }
+    }
 }
