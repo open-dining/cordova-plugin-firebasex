@@ -15,10 +15,10 @@
         android:layout_height="match_parent"
         android:gravity="top|center"
         android:keepScreenOn="true"
-        android:text="Danger!"
-        android:textColor="#FF40C4FF"
+        android:text="Online Ordering"
+        android:textColor="#4E4E4E"
         android:textSize="50sp"
-        android:textStyle="bold" />
+        android:textStyle="normal" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -37,10 +37,11 @@
 
             <Button
                 android:id="@+id/notification_button"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Tap Here!" />
+                android:text="Tap Here to Activate" />
 
         </LinearLayout>
     </FrameLayout>
