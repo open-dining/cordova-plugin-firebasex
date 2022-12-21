@@ -32,7 +32,7 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
             );
         }
 
-        final MediaPlayer mediaPlayer = MediaPlayer.create(this, getResources().getIdentifier("ding", "raw", getPackageName()));
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, getResources().getIdentifier("ding", "raw", getPackageName()));
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
 
@@ -48,7 +48,6 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
             public void onClick(View v) {
                 mediaPlayer.stop();
                 mediaPlayer.release();
-                mediaPlayer = null;
 
                 handleNotification(thisActivity, thisIntent);
             }
