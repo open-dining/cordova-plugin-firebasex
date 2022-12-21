@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.app.KeyguardManager;
 import android.os.Bundle;
+import android.os.Build;
 import android.util.Log;
+import android.view.WindowManager
 
 public class OnNotificationReceiverFullscreenActivity extends Activity {
     @Override
@@ -20,13 +22,14 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
             KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
             keyguardManager.requestDismissKeyguard(this, null);
         } else {
-            window.addFlags(
+            getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
             );
         }
 
         Log.d(FirebasePlugin.TAG, "OnNotificationReceiverActivity.onCreate()");
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(getResources().getIdentifier("activity_fullscreen", "layout", getPackageName()));
+        //setContentView(R.layout.activity_fullscreen);
         handleNotification(this, getIntent());
 
         // finish();
