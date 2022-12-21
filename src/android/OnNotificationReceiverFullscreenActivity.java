@@ -31,7 +31,9 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
         Log.d(FirebasePlugin.TAG, "OnNotificationReceiverFullscreenActivity.onCreate()");
         setContentView(getResources().getIdentifier("activity_fullscreen", "layout", getPackageName()));
         //setContentView(R.layout.activity_fullscreen);
-        handleNotification(this, getIntent());
+
+        // With this uncommented, it brings the activity up, but haphazardly
+        //handleNotification(this, getIntent());
 
         // finish();
     }
