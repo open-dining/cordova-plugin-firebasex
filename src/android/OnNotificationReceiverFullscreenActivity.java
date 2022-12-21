@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.media.MediaPlayer;
 
 public class OnNotificationReceiverFullscreenActivity extends Activity {
+    MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(FirebasePlugin.TAG, "OnNotificationReceiverFullscreenActivity.onCreate() Start!");
@@ -32,7 +34,7 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
             );
         }
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, getResources().getIdentifier("ding", "raw", getPackageName()));
+        mediaPlayer = MediaPlayer.create(this, getResources().getIdentifier("ding", "raw", getPackageName()));
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
 
@@ -50,7 +52,7 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
                 mediaPlayer.release();
 
                 handleNotification(thisActivity, thisIntent);
-                thisActivity.finish();
+                //thisActivity.finish();
             }
         });
 
@@ -85,12 +87,14 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
             launchIntent.putExtras(data);
             context.startActivity(launchIntent);
         }catch (Exception e){
+            Log.d(FirebasePlugin.TAG, "Exception on handleNotification: " + e.getMessage());
             FirebasePlugin.handleExceptionWithoutContext(e);
         }
     }
 
     @Override
     protected void onStop() {
+        Log.d(FirebasePlugin.TAG, "OnNotificationReceiverFullscreenActivity.onStop() Stop!");
         super.onStop();
 
         try
