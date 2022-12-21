@@ -266,14 +266,17 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
 
             if(getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.S && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 if (fullScreenNotification) {
+                    Log.d(TAG, "Full screen activity");
                     intent = new Intent(this, OnNotificationReceiverFullscreenActivity.class);
                 } else {
+                    Log.d(TAG, "Receiver activity");
                     intent = new Intent(this, OnNotificationReceiverActivity.class);
                 }
 
                 intent.putExtras(bundle);
                 pendingIntent = PendingIntent.getActivity(this, id.hashCode(), intent, flag);
             }else{
+                Log.d(TAG, "Low-SDK activity");
                 intent = new Intent(this, OnNotificationOpenReceiver.class);
                 intent.putExtras(bundle);
                 pendingIntent = PendingIntent.getBroadcast(this, id.hashCode(), intent, flag);

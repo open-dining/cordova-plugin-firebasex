@@ -13,6 +13,7 @@ import android.view.WindowManager;
 public class OnNotificationReceiverFullscreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(FirebasePlugin.TAG, "OnNotificationReceiverFullscreenActivity.onCreate() Start!");
         super.onCreate(savedInstanceState);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
@@ -27,7 +28,7 @@ public class OnNotificationReceiverFullscreenActivity extends Activity {
             );
         }
 
-        Log.d(FirebasePlugin.TAG, "OnNotificationReceiverActivity.onCreate()");
+        Log.d(FirebasePlugin.TAG, "OnNotificationReceiverFullscreenActivity.onCreate()");
         setContentView(getResources().getIdentifier("activity_fullscreen", "layout", getPackageName()));
         //setContentView(R.layout.activity_fullscreen);
         handleNotification(this, getIntent());
