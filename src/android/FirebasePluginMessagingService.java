@@ -290,6 +290,10 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
                 Log.d(TAG, "Channel ID: "+channelId);
             }
 
+            if (channelId == null) {
+                channelId = "fcm_default_channel";
+            }
+
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId);
 
