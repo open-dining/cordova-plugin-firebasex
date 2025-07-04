@@ -287,7 +287,7 @@ public class FirebasePlugin extends CordovaPlugin {
 
     @Override
     public Object onMessage(String id, Object data){
-        if(id === "onPageFinished"){
+        if("onPageFinished".equals(id)){       
             Log.d(TAG, "Page ready init javascript");
             executePendingGlobalJavascript();
         }
