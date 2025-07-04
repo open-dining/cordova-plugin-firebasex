@@ -276,15 +276,21 @@ public class FirebasePlugin extends CordovaPlugin {
                     defaultChannelId = getStringResource("default_notification_channel_id");
                     defaultChannelName = getStringResource("default_notification_channel_name");
                     createDefaultChannel();
-
-                    pluginInitialized = true;
-                    executePendingGlobalJavascript();
+                    pluginInitialized = true;                   
 
                 } catch (Exception e) {
                     handleExceptionWithoutContext(e);
                 }
             }
         });
+    }
+
+    @Override
+    public Object onMessage(String id, Object data){
+        if(id === "onPageFinished"){
+            Log.d(TAG, "Page ready init javascript");
+            executePendingGlobalJavascript();
+        }
     }
 
     @Override
