@@ -1560,10 +1560,10 @@ static NSMutableArray *pendingGlobalJS = nil;
     __weak __auto_type weakSelf = self;
     GIDConfiguration *googleSignInConfig = [[GIDConfiguration alloc]
         initWithClientID:[FIRApp defaultApp].options.clientID];
+    GIDSignIn.sharedInstance.configuration = googleSignInConfig;
 
     [GIDSignIn.sharedInstance
-         signInWithConfiguration:googleSignInConfig
-        presentingViewController:self.viewController
+        signInWithPresentingViewController:self.viewController
                       completion:^(GIDSignInResult *_Nullable signInResult,
                                    NSError *_Nullable error) {
                         __auto_type strongSelf = weakSelf;
