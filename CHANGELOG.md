@@ -1,3 +1,20 @@
+# Version 19.1.0
+* (ios) Update `getXcodeProjectPath` to support cordova-ios 8.x.
+    * Merged from PR [#964](https://github.com/dpa99c/cordova-plugin-firebasex/pull/964)
+* fix unable to uninstall the plugin via `cordova plugin rm cordova-plugin-firebasex`
+    * Merged from PR [#966](https://github.com/dpa99c/cordova-plugin-firebasex/pull/966)
+* (android) Factorise magic connection timeout number into documented constant
+* (android) fix typos in native strings
+* (ios) Fix typo in log message for language code
+* (types) add missing property and method definitions
+* (android) Remove `jcenter()` from Gradle config because JCenter was retired in 2021 and the `jcenter()` shortcut method was deprecated in Gradle 7.0 and completely removed in Gradle 8.0 and newer.
+* (android&ios) Document all native functions in code.
+* (android) Migration from Google Sign In to Credential Manager.
+    * Resolves [#958](https://github.com/dpa99c/cordova-plugin-firebasex/issues/958)
+* (android) Bump pinned Firebase SDK versions to BoM v34.9.0 - 05 Feb 2026: https://firebase.google.com/support/release-notes/android#2026-02-05
+* (ios) Bump pinned Firebase SDK versions to v12.9.0 - 03 Feb 2026: https://firebase.google.com/support/release-notes/ios#version_1290_-_february_3_2026
+* (ios) Fix `GIDSignIn` method signature in `authenticateUserWithGoogle` to use `signInWithPresentingViewController:` due to removal of deprecated `signInWithConfiguration:` in Firebase iOS SDK v12.9.0
+
 # Version 19.0.1
 * (ios) fix: Migrate to new Firebase Analytics module structure for SDK >= 11.14.0
     * Merged from PR [#960](https://github.com/dpa99c/cordova-plugin-firebasex/pull/960)
