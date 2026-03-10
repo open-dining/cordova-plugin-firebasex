@@ -559,9 +559,7 @@ static __weak id<UNUserNotificationCenterDelegate>
     bool hasBadge = [aps objectForKey:@"badge"] != nil;
     bool hasSound = [aps objectForKey:@"sound"] != nil;
 
-    bool isContentAvailable = [self isContentAvailable:mutableUserInfo];
-
-    if (showForegroundNotification && isContentAvailable) {
+    if (showForegroundNotification) {
       [FirebasePlugin.firebasePlugin
           _logMessage:
               [NSString
