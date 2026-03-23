@@ -13,6 +13,15 @@ export interface IChannelOptions {
     streamType?: number
 }
 
+interface UserProvider {
+    providerId: string;
+    uid: string;
+    displayName: string | null;
+    email: string | null;
+    phoneNumber: string | null;
+    photoUrl: string | null;
+}
+
 interface User {
     name: string;
     email: string;
@@ -22,6 +31,10 @@ interface User {
     uid: string;
     providerId: string;
     idToken: string;
+    isAnonymous: boolean;
+    creationTimestamp: number;
+    lastSignInTimestamp: number;
+    providers: UserProvider[];
 }
 
 export interface FirebasePlugin {
@@ -119,6 +132,21 @@ export interface FirebasePlugin {
     setAnalyticsCollectionEnabled(
         setEnabled: boolean
     ): void
+    AnalyticsConsentMode: {
+        ANALYTICS_STORAGE: string,
+        AD_STORAGE: string,
+        AD_USER_DATA: string,
+        AD_PERSONALIZATION: string
+    }
+    AnalyticsConsentStatus: {
+        GRANTED: string,
+        DENIED: string
+    }
+    setAnalyticsConsentMode(
+        consent: object,
+        success: (info: object) => void,
+        error: (err: string) => void
+    ): void
     logEvent(
         eventName: string,
         eventProperties: object
@@ -132,6 +160,11 @@ export interface FirebasePlugin {
     setUserProperty(
         userName: string,
         userValue: string
+    ): void
+    initiateOnDeviceConversionMeasurement(
+        userIdentifier: { emailAddress?: string, phoneNumber?: string },
+        success?: () => void,
+        error?: (err: string) => void
     ): void
     setCrashlyticsCollectionEnabled(): void
     didCrashOnPreviousExecution(
@@ -242,23 +275,33 @@ export interface FirebasePlugin {
     ): void
     authenticateUserWithGoogle(
         clientId: string,
-        success?: (credential:object) => void,
-        error?: (err: string) => void
+        success?: (credential: object) => void,
+        error?: (err: string) => void,
+        options?: {
+            useCredentialManager?: boolean
+        }
     ): void
     authenticateUserWithApple(
-        success?: (credential:object) => void,
+        success?: (credential: object) => void,
         error?: (err: string) => void,
         locale?: string,
     ): void
     authenticateUserWithMicrosoft(
-        success?: (credential:object) => void,
+        success?: (credential: object) => void,
         error?: (err: string) => void,
         locale?: string,
     ): void
     authenticateUserWithFacebook(
         accessToken: string,
-        success?: (credential:object) => void,
+        success?: (credential: object) => void,
         error?: (err: string) => void,
+    ): void
+    authenticateUserWithOAuth(
+        success: (credential: object) => void,
+        error: (err: string) => void,
+        providerId: string,
+        customParameters?: object,
+        scopes?: [string],
     ): void
     signInWithCredential(
         credential: object,
@@ -272,6 +315,11 @@ export interface FirebasePlugin {
     ): void
     reauthenticateWithCredential(
         credential: object,
+        success?: () => void,
+        error?: (err: string) => void
+    ): void
+    unlinkUserWithProvider(
+        providerId: string,
         success?: () => void,
         error?: (err: string) => void
     ): void
@@ -338,6 +386,9 @@ export interface FirebasePlugin {
     ): void
     registerAuthStateChangeListener(
         fn: (userSignedIn: boolean) => void,
+    ): void
+    registerAuthIdTokenChangeListener(
+        fn: (result: undefined | { idToken: string, providerId: string }) => void,
     ): void
     useAuthEmulator(
         host: string,
@@ -413,6 +464,7 @@ export interface FirebasePlugin {
     addDocumentToFirestoreCollection(
         document: object,
         collection: string,
+        timestamp: boolean,
         success: () => void,
         error: (err: string) => void
     ): void
@@ -420,6 +472,7 @@ export interface FirebasePlugin {
         documentId: string,
         document: object,
         collection: string,
+        timestamp: boolean,
         success: () => void,
         error: (err: string) => void
     ): void
@@ -427,6 +480,7 @@ export interface FirebasePlugin {
         documentId: string,
         document: object,
         collection: string,
+        timestamp: boolean,
         success: () => void,
         error: (err: string) => void
     ): void
@@ -466,6 +520,48 @@ export interface FirebasePlugin {
         success: () => void,
         error: (err: string) => void,
         listenerId: string
+    ): void
+    documentExistsInFirestoreCollection(
+        documentId: string,
+        collection: string,
+        success: (exists: boolean) => void,
+        error: (err: string) => void
+    ): void
+    functionsHttpsCallable(
+        functionName: string,
+        args: object,
+        success: (result: object) => void,
+        error: (err: string) => void
+    ): void
+    getInstallationId(
+        success: (installationId: string) => void,
+        error: (err: string) => void
+    ): void
+    getInstallationToken(
+        success: (token: string) => void,
+        error: (err: string) => void
+    ): void
+    deleteInstallationId(
+        success: () => void,
+        error: (err: string) => void
+    ): void
+    isAnalyticsCollectionEnabled(
+        success: (enabled: boolean) => void,
+        error: (err: string) => void
+    ): void
+    isPerformanceCollectionEnabled(
+        success: (enabled: boolean) => void,
+        error: (err: string) => void
+    ): void
+    isCrashlyticsCollectionEnabled(
+        success: (enabled: boolean) => void,
+        error: (err: string) => void
+    ): void
+    registerApplicationDidBecomeActiveListener(
+        fn: () => void,
+    ): void
+    registerApplicationDidEnterBackgroundListener(
+        fn: () => void,
     ): void
 }
 

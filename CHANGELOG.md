@@ -1,3 +1,199 @@
+# Version 19.1.0
+* (ios) Update `getXcodeProjectPath` to support cordova-ios 8.x.
+    * Merged from PR [#964](https://github.com/dpa99c/cordova-plugin-firebasex/pull/964)
+* fix unable to uninstall the plugin via `cordova plugin rm cordova-plugin-firebasex`
+    * Merged from PR [#966](https://github.com/dpa99c/cordova-plugin-firebasex/pull/966)
+* (android) Factorise magic connection timeout number into documented constant
+* (android) fix typos in native strings
+* (ios) Fix typo in log message for language code
+* (types) add missing property and method definitions
+* (android) Remove `jcenter()` from Gradle config because JCenter was retired in 2021 and the `jcenter()` shortcut method was deprecated in Gradle 7.0 and completely removed in Gradle 8.0 and newer.
+* (android&ios) Document all native functions in code.
+* (android) Migration from Google Sign In to Credential Manager.
+    * Resolves [#958](https://github.com/dpa99c/cordova-plugin-firebasex/issues/958)
+* (android) Bump pinned Firebase SDK versions to BoM v34.9.0 - 05 Feb 2026: https://firebase.google.com/support/release-notes/android#2026-02-05
+* (ios) Bump pinned Firebase SDK versions to v12.9.0 - 03 Feb 2026: https://firebase.google.com/support/release-notes/ios#version_1290_-_february_3_2026
+* (ios) Fix `GIDSignIn` method signature in `authenticateUserWithGoogle` to use `signInWithPresentingViewController:` due to removal of deprecated `signInWithConfiguration:` in Firebase iOS SDK v12.9.0
+
+# Version 19.0.1
+* (ios) fix: Migrate to new Firebase Analytics module structure for SDK >= 11.14.0
+    * Merged from PR [#960](https://github.com/dpa99c/cordova-plugin-firebasex/pull/960)
+    * Resolves [#959](https://github.com/dpa99c/cordova-plugin-firebasex/issues/959)
+
+# Version 19.0.0
+* (ios) BREAKING: Update pinned default Firebase iOS SDK version from v11.8.0 to v12.3.0 - September 15, 2025
+    * https://firebase.google.com/support/release-notes/ios#version_1230_-_september_15_2025
+    * Changes minimum iOS deployment version from 13.0 to 15.0.
+    * Also updated:
+        * GoogleSignIn from v7.1.0 to v9.0.0
+        * GoogleTagManager from v8.0.0 to v9.0.0
+* (android) Update pinned default Firebase Android SDK versions to BOM v34.3.0 - September 18, 2025
+    * https://firebase.google.com/support/release-notes/android#2025-09-18
+* (android) bugfix: Plugin raises error on some devices at startup if ID token is refreshed before plugin is initialized.
+    * Merged from PR [#954](https://github.com/dpa99c/cordova-plugin-firebasex/pull/954)
+    * Resolves [#925](https://github.com/dpa99c/cordova-plugin-firebasex/issues/925)
+* (android) bugfix: Wait for plugin to be initialized before executing pending JS calls.
+    * Merged from PR [#942](https://github.com/dpa99c/cordova-plugin-firebasex/pull/942)
+* (ios) bugfix: Add isContentAvailable check before displaying foreground notification so it's not shown twice
+* (ios) Fix detection of content-available key in APNS payload
+    * Resolves [#938](https://github.com/dpa99c/cordova-plugin-firebasex/issues/938) and [#624](https://github.com/dpa99c/cordova-plugin-firebasex/issues/624)
+
+
+# Version 18.0.7
+* (android) fix: remove Google Services plugin configuration so it doesn't conflict with `cordova-android@14` and use Cordova config to enable the plugin instead.
+  * Resolves [#931](https://github.com/dpa99c/cordova-plugin-firebasex/issues/931)
+
+# Version 18.0.6
+* (ios) bugfix: Force token refresh when calling getClaims
+    * Merged from PR [#919](https://github.com/dpa99c/cordova-plugin-firebasex/pull/919)
+* (ios) bugfix: notification payload not delivered by onMessageReceived when app is launched from cold start by tapping system notification.
+  * Resolves [#917](https://github.com/dpa99c/cordova-plugin-firebasex/issues/917)
+* (ios) chore: Update pinned Firebase SDK version to latest version v11.8.0 (3 Feb 2025)
+  * https://firebase.google.com/support/release-notes/ios#version_1180_-_february_3_2025
+* (ios) chore: Update pinned GoogleSignIn SDK to v7.1.0
+  * Resolves [#921](https://github.com/dpa99c/cordova-plugin-firebasex/issues/921)
+* (android) chore: Update pinned Firebase SDK to latest versions:  BoM version 33.9.0 (6 Feb 2025)
+  * https://firebase.google.com/support/release-notes/android#2025-02-06
+
+
+# Version 18.0.5
+* (android) bugfix: Handle notification exceptions when sending pending notifications
+    * Merged from PR [#913](https://github.com/dpa99c/cordova-plugin-firebasex/pull/913)
+* fix: Integration with GoogleTagManager
+  * Merged from PR [#906](https://github.com/dpa99c/cordova-plugin-firebasex/pull/906)
+* (ios) feat: Turn on debug view for debug builds by default
+    * Merged from PR [#910](https://github.com/dpa99c/cordova-plugin-firebasex/pull/910)
+* (ios) fix: Enabled access to `FIRAuthErrorUserInfoUpdatedCredentialKey` on `linkUserWithCredential` auth/credential-already-in-use error
+    * Merged from PR [#916](https://github.com/dpa99c/cordova-plugin-firebasex/pull/916)
+* (ios) Update pinned Firebase SDK versions to [v11.5.0](https://firebase.google.com/support/release-notes/ios#version_1150_-_november_11_2024)
+* * (android) Update pinned Firebase SDK component versions to [BoM v33.6.0 (15 November 2024)](https://firebase.google.com/support/release-notes/android#2024-11-15)
+
+# Version 18.0.4
+* bugfix: remove unused cordova-ios import that breaks projects without ios platform
+  * Merged from PR [#912](https://github.com/dpa99c/cordova-plugin-firebasex/pull/912)
+
+# Version 18.0.3
+* (ios) bugfix: fix invalid cordova hook interface use
+  * Resolves [#908](https://github.com/dpa99c/cordova-plugin-firebasex/issues/908)
+  * Merged from PR [#909](https://github.com/dpa99c/cordova-plugin-firebasex/pull/909)
+
+# Version 18.0.2
+* bugfix: only apply new logic for cordova-ios@8 if platform is ios
+  - Resolves [#907](https://github.com/dpa99c/cordova-plugin-firebasex/issues/907)
+  - Introduced by [#896](https://github.com/dpa99c/cordova-plugin-firebasex/pull/896)
+
+
+# Version 18.0.1
+* feat(ios): prepare for cordova-ios 8 support - corrected app name
+  * Merged from PR [#896](https://github.com/dpa99c/cordova-plugin-firebasex/pull/896)
+* (ios) Explicitly allow 8.0.0-beta.1 in cordova-ios version requirements as >=5 does not allow it
+* (ios) Gracefully handle missing Podfile when running hook scripts
+* (ios) Ensure plist files exist before attempting to access their contents. Gracefully fail if they are missing.
+* (ios) Gracefully fail if Google App ID is not found in Google plist
+* (ios) fix: ensure IOS_FIREBASE_SDK_VERSION is applied to pre-built Firestore pod version if IOS_USE_PRECOMPILED_FIRESTORE_POD=true
+* (ios) Update pinned Firebase SDK versions to [v11.4.0](https://firebase.google.com/support/release-notes/ios#version_1140_-_october_21_2024)
+* (android) Update pinned Firebase SDK component versions to [BoM v33.5.1 (23 October 2024)](https://firebase.google.com/support/release-notes/android#2024-10-23)
+
+
+# Version 18.0.0
+* (iOS & Android) BREAKING change: Notification payloads received while the app is in the background or inactive are now queued by default, instead of delivered immediately to the application.
+  * This is to ensure the application is ready to receive the notification payload when it is delivered.
+  * This DOES NOT affect notifications that are tapped on by the user, which are always delivered immediately.
+  * Merged from PR [#902](https://github.com/dpa99c/cordova-plugin-firebasex/pull/902)
+* (ios) fix: explicitly specify FirebaseCoreExtension version in Podfile so it aligns with other component versions
+* (ios) Document and check if SKIP_FIREBASE_FIRESTORE_SWIFT environment variable is set if plugin variable IOS_USE_PRECOMPILED_FIRESTORE_POD is set to true
+* (iOS) Document deprecation of `cli_build` branch
+
+# Version 17.0.0
+* (ios) BREAKING: Update pinned Firebase SDK versions to [v11.2.0](https://firebase.google.com/support/release-notes/ios#version_1120_-_september_10_2024) and updated related dependencies: GoogleSignIn v7.0.0, GoogleTagManager v8.0.0
+  * Firebase iOS SDK v11 supports iOS 13+
+    * BREAKING: drops support for iOS 12 which was supported by Firebase iOS SDK v10
+  * Resolves [#892](https://github.com/dpa99c/cordova-plugin-firebasex/issues/892)
+* (ios) Update to use Google Sign-In SDK v7 signatures.
+  * Resolves [#809](https://github.com/dpa99c/cordova-plugin-firebasex/issues/809)
+* (ios) bugfix: gracefully handle missing iOS deployment target in Podfile.
+    * Resolves [#868](https://github.com/dpa99c/cordova-plugin-firebasex/issues/868)
+* (ios) Add support for `IOS_FIREBASE_IN_APP_MESSAGING_VERSION` plugin variable to enable specifying a different version of the InappMessaging SDK component from the other Firebase iOS SDK components
+* (Android) update: Pin latest Firebase SDK component versions to [Bom v33.3.0](https://firebase.google.com/support/release-notes/android#bom_v33-3-0) as of [12 Sep 2024](https://firebase.google.com/support/release-notes/android#2024-09-12)
+* fix: Queue global JS executions if plugin is not yet initialized to prevent calling functions on the plugin JS API before Cordova has loaded the plugin JS namespace.
+  * Resolves [#888](https://github.com/dpa99c/cordova-plugin-firebasex/issues/888)
+
+# Version 16.5.0
+* (Android) update: Pin latest Firebase SDK component versions as of [11 Apr 2024](https://firebase.google.com/support/release-notes/android#2024-04-11)
+* (iOS) update: Pin latest Firebase SDK components v10.24.0 as of [9 Apr 2024](https://firebase.google.com/support/release-notes/ios#version_10240_-_april_9_2024)
+* feat: Add unlinkUserWithProvider()
+    * Based on PR [#821](https://github.com/dpa99c/cordova-plugin-firebasex/pull/821)
+* (android) fix: support minSDK 24+ - remove trailing comma
+    * Merged from PR [#860](https://github.com/dpa99c/cordova-plugin-firebasex/pull/860)
+* doc: Add information to enable the Analytics debug_mode
+    * Merged from PR [#820](https://github.com/dpa99c/cordova-plugin-firebasex/pull/820)
+* Add Consent Mode v2
+    * Merged from PR [#878](https://github.com/dpa99c/cordova-plugin-firebasex/pull/878)
+* (ios) docs: Update IOS_NOTIFICATION_SERVICE.md
+    * Merged from PR [#814](https://github.com/dpa99c/cordova-plugin-firebasex/pull/814)
+
+# Version 16.4.0
+* (doc) Add note about xmlns:android attribute for config.xml
+  Merged from PR [#840](https://github.com/dpa99c/cordova-plugin-firebasex/pull/840)
+* (doc) Clarify how to set plugin variables
+* (iOS) fix matching of pod versions so IOS_FIREBASE_SDK_VERSION variable is applied to Podfile.
+  * Resolves [#838](https://github.com/dpa99c/cordova-plugin-firebasex/issues/838)
+* (iOS) Support optional patch version when specifying iOS deployment target version.
+  * Resolves [#822](https://github.com/dpa99c/cordova-plugin-firebasex/issues/822)
+* (Android) bugfix: when grantPermission is called on Android 12 or below, ensure success callback is invoked.
+  * Resolves [#819](https://github.com/dpa99c/cordova-plugin-firebasex/issues/819)
+* (iOS & Android) feat: Implement authenticateUserWithOAuth() to authenticate with OAuth providers
+* (ios) Return idToken in credential result when authentication with Apple is successful.
+  * Partially resolves [#857](https://github.com/dpa99c/cordova-plugin-firebasex/issues/857)
+
+
+# Version 16.3.0
+* (Android) apply FIREBASE_ANALYTICS_WITHOUT_ADS plugin variable to disable AD ID data collection and remove AD ID permission from manifest
+* (iOS) build: apply FIREBASE_ANALYTICS_WITHOUT_ADS and IOS_ON_DEVICE_CONVERSION_ANALYTICS plugin variables to plugin.xml using npm post_install script
+* (doc) Explain additional step required for post-install plugin variables
+* (iOS) feat: Add `initiateOnDeviceConversionMeasurement()` to support on-device conversion measurement
+    * Implements [#843](https://github.com/dpa99c/cordova-plugin-firebasex/pull/843)
+* (iOS) fix: add FirebaseAnalytics pod
+  * Merged from PR [#848](https://github.com/dpa99c/cordova-plugin-firebasex/pull/848)
+
+
+# Version 16.2.0
+* (iOS) add npm post_install script to apply IOS_USE_PRECOMPILED_FIRESTORE_POD plugin variable to plugin.xml before the plugin config is loaded by Cordova
+* (iOS) use product pods for firebase packages
+  * Merged from PR [#811](https://github.com/dpa99c/cordova-plugin-firebasex/pull/811)
+* (iOS) Fix plugin imports using product-level CocoaPods
+  * Merged from PR [#812](https://github.com/dpa99c/cordova-plugin-firebasex/pull/812)
+* (Android) Fix ambiguity between bigLargeIcon(Bitmap) and bigLargeIcon(Icon) on API 34
+  * Merged from PR [#836](https://github.com/dpa99c/cordova-plugin-firebasex/pull/836)
+* (build) Gracefully handle error if read/write package.json fails.
+  * Resolves [#832](https://github.com/dpa99c/cordova-plugin-firebasex/issues/832)
+  * Merged from PR [#833](https://github.com/dpa99c/cordova-plugin-firebasex/pull/833)
+* feat: Add `registerAuthIdTokenChangeListener` to monitor changes in auth ID token.
+    * Resolves [#831](https://github.com/dpa99c/cordova-plugin-firebasex/issues/831)
+* (iOS) update: Pin latest Firebase SDK component version (v10.17.0) as of [30 Oct 2023](https://firebase.google.com/support/release-notes/ios#version_10170_-_oct_30_2023)
+* (Android) update: Pin latest Firebase SDK component versions as of [30 Oct 2023](https://firebase.google.com/support/release-notes/android#2023-10-30)
+
+
+# Version 16.1.0
+* (iOS) feat: add support for IOS_FCM_ENABLED variable to allow disabling FCM functionality on iOS
+    * Merged from PR [#797](https://github.com/dpa99c/cordova-plugin-firebasex/pull/797)
+* (types) feat: add support for lastUpdate and created in Firestore operations
+    * Merged from PR [#793](https://github.com/dpa99c/cordova-plugin-firebasex/pull/793)
+* (iOS) doc: Tutorial to make the necessary configurations to send images in notifications
+    * Merged from PR [#798](https://github.com/dpa99c/cordova-plugin-firebasex/pull/798)
+* (iOS) Fix foreground notifications not being displayed after calling grantPermission when permissions haven't been previously granted
+    * Merged from PR [#800](https://github.com/dpa99c/cordova-plugin-firebasex/pull/800)
+* doc: add server side verification documentation to authenticateUserWithGoogle()
+    * Merged from PR [#805](https://github.com/dpa99c/cordova-plugin-firebasex/pull/805)
+* (iOS) build: Use precompiled FirebaseFirestore on first pod install
+    * Merged from PR [#752](https://github.com/dpa99c/cordova-plugin-firebasex/pull/752)
+* (iOS) feat: Add registerApplicationDidBecomeActiveListener() and registerApplicationDidEnterBackgroundListener() methods to expose native iOS app delegate methods
+* (Android) build: Add support for `cordova-android@12` - use cordova-android config variable version
+    * Merged from PR [#807](https://github.com/dpa99c/cordova-plugin-firebasex/pull/807)
+* (Android) update: Pin latest Firebase SDK component versions as of [01 May 2023](https://firebase.google.com/support/release-notes/android#2023-05-01)
+* (iOS) update: Pin latest Firebase SDK component version (v10.10.0) as of [23 May 2023](https://firebase.google.com/support/release-notes/ios#version_10100_-_may_23_2023)
+
+
 # Version 16.0.0
 * (iOS & Android) **BREAKING CHANGE**: Changed signature of `verifyPhoneNumber()` to pass optional arguments as an object.
 * (iOS & Android) feat: Add support for multi-factor authentication

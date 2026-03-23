@@ -2,12 +2,10 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
-        classpath 'com.google.gms:google-services:4.3.10'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
+        classpath "com.android.tools.build:gradle:${cordovaConfig.AGP_VERSION}"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
     }
 }
 repositories {
@@ -35,16 +33,5 @@ android {
     }
 }
 
-cdvPluginPostBuildExtras.add({
-    afterEvaluate {
-        rootProject.subprojects {
-            if (name == "app") {
-                if (!plugins.hasPlugin('com.google.gms.google-services')) {
-                    apply plugin: com.google.gms.googleservices.GoogleServicesPlugin
-                }
-            }
-        }
-    }
-})
 
 
